@@ -1,22 +1,35 @@
-const { test, expect } = require("@playwright/test");
+// @ts-check
+const { test, expect, chromium } = require("@playwright/test");
+const { email, password, notEmail, notPassword} = require("../user.js").default;
 
-test("test", async ({ page }) => {
-  // Go to https://netology.ru/free/management#/
-  await page.goto("https://netology.ru/free/management#/");
+test("Successful authorization", async ({ page }) => {
+  const browser = await chromium.launch({
+    headless: false,   
+  });
+    
+  await page.goto("https://netology.ru/?modal=sign_in");
+  await page.click('[name="email"]');   
+  await page.fill('[placeholder="Email"]', email);    
+  await page.click('[name="password"]');
+  await page.fill('[placeholder="Пароль"]', password);
+  await page.locator('[data-testid="login-submit-btn"]').click();
+  await page.waitForURL("https://netology.ru/profile");
+  const header = await page.locator("h2").first();
+  await expect(header).toHaveText("Мои курсы и профессии");
+  await browser.close();
+});
 
-  // Click a
-  await page.click("a");
-  await expect(page).toHaveURL("https://netology.ru/");
-
-  // Click text=Учиться бесплатно
-  await page.click("text=Учиться бесплатно");
-  await expect(page).toHaveURL("https://netology.ru/free");
-
-  page.click("text=Бизнес и управление");
-
-  // Click text=Как перенести своё дело в онлайн
-  await page.click("text=Как перенести своё дело в онлайн");
-  await expect(page).toHaveURL(
-    "https://netology.ru/programs/kak-perenesti-svoyo-delo-v-onlajn-bp"
-  );
+test("Unsuccessful authorization", async ({ page }) => {
+  const browser = await chromium.launch({
+    headless: false,    
+  });
+  await page.goto("https://netology.ru/?modal=sign_in");
+  await page.click('[name="email"]');   
+  await page.fill('[placeholder="Email"]', notEmail);    
+  await page.click('[name="password"]');
+  await page.fill('[placeholder="Пароль"]', notPassword);
+  await page.click('[data-testid="login-submit-btn"]');
+  await expect(page.locator("data-testid=login-error-hint")).toContainText("Вы ввели неправильно логин или пароль");
+  
+  await browser.close();
 });

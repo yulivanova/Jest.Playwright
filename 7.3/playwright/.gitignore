@@ -1,5 +1,8 @@
 /node_modules/
-
+user.js
+/test-results/
+/playwright-report/
+/playwright/.cache/
 
 .vscode/*
 !.vscode/settings.json
