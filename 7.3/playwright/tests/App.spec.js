@@ -5,6 +5,7 @@ const { email, password, notEmail, notPassword} = require("../user.js").default;
 test("Successful authorization", async ({ page }) => {
   const browser = await chromium.launch({
     headless: false,   
+    slowMo: 500,
   });
     
   await page.goto("https://netology.ru/?modal=sign_in");
@@ -16,12 +17,14 @@ test("Successful authorization", async ({ page }) => {
   await page.waitForURL("https://netology.ru/profile");
   const header = await page.locator("h2").first();
   await expect(header).toHaveText("Мои курсы и профессии");
+  
   await browser.close();
 });
 
 test("Unsuccessful authorization", async ({ page }) => {
   const browser = await chromium.launch({
-    headless: false,    
+    headless: false,  
+    slowMo: 500,  
   });
   await page.goto("https://netology.ru/?modal=sign_in");
   await page.click('[name="email"]');   

@@ -1,7 +1,6 @@
 {
   "name": "jsaqa_3_2",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "playwright test"
@@ -11,5 +10,13 @@
   "keywords": [],
   "devDependencies": {
     "@playwright/test": "^1.31.2"
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "playwright": "^1.31.2",
+    "playwright-core": "^1.31.2"
+  },
+  "description": ""
 }
