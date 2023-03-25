@@ -3,6 +3,8 @@ user.js
 /test-results/
 /playwright-report/
 /playwright/.cache/
+screenshot.png
+screenshotErr.png
 
 .vscode/*
 !.vscode/settings.json

@@ -1,4 +1,5 @@
-// @ts-check
+/* eslint-disable no-undef */
+// @ts-nocheck
 const { devices } = require("@playwright/test");
 
 /**
@@ -14,7 +15,7 @@ const { devices } = require("@playwright/test");
 const config = {
   testDir: "./tests",
   /* Maximum time one test can run for. */
-  timeout: 30 * 1000,
+  timeout: 60 * 1000,
   expect: {
     /**
      * Maximum time expect() should wait for the condition to be met.
@@ -40,11 +41,7 @@ const config = {
     // baseURL: 'http://localhost:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
-    launchOptions: {
-      headless: false,
-      slowMo: 300,
-    }
+    trace: "on-first-retry",
   },
 
   /* Configure projects for major browsers */
@@ -56,19 +53,18 @@ const config = {
       },
     },
 
-    // {
-    //   name: "firefox",
-    //   use: {
-    //     ...devices["Desktop Firefox"],
-    //   },
-    // },
-
-    // {
-    //   name: "webkit",
-    //   use: {
-    //     ...devices["Desktop Safari"],
-    //   },
-    // },
+    /*{
+      name: "firefox",
+      use: {
+        ...devices["Desktop Firefox"],
+      },
+    },
+    {
+      name: "webkit",
+      use: {
+        ...devices["Desktop Safari"],
+      },
+    },*/
 
     /* Test against mobile viewports. */
     // {
