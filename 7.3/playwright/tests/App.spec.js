@@ -7,7 +7,7 @@ test("Successful authorization", async ({ page }) => {
     slowMo: 500,
   });
 
-  await page.goto("https://netology.ru/?modal=sign_in");
+  await page.goto("https://netology.ru/?modal=sign_in", { timeout: 60000 });
   await page.click('[name="email"]');   
   await page.fill('[placeholder="Email"]', email);    
   await page.click('[name="password"]');
@@ -18,7 +18,7 @@ test("Successful authorization", async ({ page }) => {
   await expect(header).toHaveText("Мои курсы и профессии");
   await page.screenshot({ path: "screenshot.png" });
   
-  await browser.close(), { timeout: 60000 };
+  await browser.close();
 });
 
 test("Unsuccessful authorization", async ({ page }) => {
@@ -27,7 +27,7 @@ test("Unsuccessful authorization", async ({ page }) => {
     slowMo: 500,
   });
 
-  await page.goto("https://netology.ru/?modal=sign_in");
+  await page.goto("https://netology.ru/?modal=sign_in", { timeout: 60000 });
   await page.click('[name="email"]');   
   await page.fill('[placeholder="Email"]', notEmail);    
   await page.click('[name="password"]');
@@ -36,5 +36,5 @@ test("Unsuccessful authorization", async ({ page }) => {
   await expect(page.locator("data-testid=login-error-hint")).toContainText("Вы ввели неправильно логин или пароль");
   await page.screenshot({ path: "screenshotErr.png" });
   
-  await browser.close(), { timeout: 60000 };
+  await browser.close();
 });
